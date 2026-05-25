@@ -1,0 +1,97 @@
+/* ─── Contact page ───────────────────────────────────────────────────────── */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 860px) {
+  .contact-layout { grid-template-columns: 1fr 360px; align-items: start; }
+}
+
+/* Form */
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 500px) { .contact-form__row { grid-template-columns: 1fr 1fr; } }
+.contact-form__note {
+  font-size: 0.78rem;
+  color: var(--subtle);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* Success */
+.contact-success {
+  background: var(--surf);
+  border: 1px solid rgba(255,229,0,0.2);
+  border-radius: var(--r-xl);
+  padding: 48px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.contact-success__icon { font-size: 3rem; }
+.contact-success h2 { font-family: var(--font-head); font-weight: 900; font-size: 1.6rem; }
+.contact-success p  { color: var(--muted); font-size: 0.96rem; }
+
+/* Sidebar */
+.contact-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+.contact-info-card {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-info-card h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.contact-info-card p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.contact-info-icon {
+  font-size: 1.1rem;
+  width: 36px; height: 36px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(255,229,0,0.15);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-info-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--subtle);
+  margin-bottom: 3px;
+}
+.contact-info-val {
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--ease);
+}
+a.contact-info-val:hover { color: var(--yellow); }
+
+.contact-sidebar-links { display: flex; flex-direction: column; gap: 8px; }

@@ -1,0 +1,124 @@
+/* ─── Portal page ────────────────────────────────────────────────────────── */
+.portal-hero {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+.portal-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,229,0,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.portal-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.portal-hero__icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  width: 80px; height: 80px;
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal-hero__title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 16px 0 16px;
+}
+.portal-hero__title em { font-style: normal; color: var(--yellow); }
+
+.portal-hero__sub {
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.portal-hero__cta {
+  margin-bottom: 14px;
+}
+
+.portal-hero__note {
+  font-size: 0.78rem;
+  color: var(--subtle);
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* Features */
+.portal-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 480px) { .portal-features { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .portal-features { grid-template-columns: repeat(4, 1fr); } }
+
+.portal-feature {
+  background: var(--surf2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color var(--ease);
+}
+.portal-feature:hover { border-color: rgba(255,229,0,0.15); }
+
+.portal-feature__icon {
+  font-size: 1.4rem;
+  width: 44px; height: 44px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(255,229,0,0.15);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portal-feature h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.portal-feature p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+
+/* Stripe banner */
+.portal-stripe-banner {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  background: var(--surf);
+}
+.portal-stripe-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.portal-stripe-banner__lock { font-size: 1.2rem; flex-shrink: 0; }
+.portal-stripe-banner p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.portal-stripe-banner strong { color: var(--white); }

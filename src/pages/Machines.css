@@ -1,0 +1,163 @@
+/* ─── Machines page ──────────────────────────────────────────────────────── */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 600px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.why-item { display: flex; flex-direction: column; gap: 10px; }
+.why-item__icon {
+  width: 42px; height: 42px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(255,229,0,0.15);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.why-item__title { font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
+.why-item__desc  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+/* Brand header */
+.brand-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.brand-label {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 12px;
+}
+.brand-label span { color: var(--yellow); }
+.brand-tagline {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 360px;
+  text-align: right;
+  line-height: 1.5;
+}
+@media (max-width: 600px) { .brand-tagline { text-align: left; } }
+
+/* Machine cards grid */
+.machines-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 640px)  { .machines-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .machines-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.machines-grid--single { grid-template-columns: 1fr; max-width: 700px; }
+
+/* Machine card */
+.mcard {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+.mcard:hover {
+  border-color: rgba(255,229,0,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+.mcard--wide { max-width: 700px; }
+
+.mcard__badge-wrap {
+  padding: 14px 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 38px;
+}
+.mcard__tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surf2);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+}
+.mcard__tag--yellow { color: var(--black); background: var(--yellow); }
+.mcard__tag--outline { color: var(--yellow); background: rgba(255,229,0,0.1); border: 1px solid rgba(255,229,0,0.2); }
+
+.mcard__img {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surf2);
+  margin: 14px 16px 0;
+  border-radius: var(--r-md);
+}
+
+.mcard__body {
+  padding: 18px 20px 0;
+  flex: 1;
+}
+.mcard__brand {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.mcard__name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.mcard__desc {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.mcard__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+.mcard__feat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.mcard__feat span { color: var(--yellow); font-weight: 700; flex-shrink: 0; }
+
+.mcard__footer {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+}
+.mcard__price { font-family: var(--font-head); font-weight: 900; }
+.mcard__price-from { font-size: 0.7rem; color: var(--muted); font-weight: 400; display: block; font-family: var(--font-body); }
+.mcard__price-num  { font-size: 1.35rem; letter-spacing: -0.02em; }

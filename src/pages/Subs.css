@@ -1,0 +1,190 @@
+/* ─── Subs page ──────────────────────────────────────────────────────────── */
+.subs-hero__stats {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat__num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--yellow);
+}
+.stat__label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* How-it-works strip */
+.subs-how__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 640px) { .subs-how__grid { grid-template-columns: repeat(3, 1fr); } }
+
+.subs-how__card {
+  background: var(--surf2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.subs-how__card h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+.subs-how__card p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Tier cards grid */
+.subs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) { .subs-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .subs-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.sub-card {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+  text-decoration: none;
+  color: inherit;
+}
+.sub-card:hover {
+  border-color: rgba(255,229,0,0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+}
+.sub-card--feat {
+  border-color: rgba(255,229,0,0.35);
+  background: linear-gradient(160deg, #0f0f00 0%, var(--surf) 100%);
+}
+.sub-card--feat:hover { border-color: rgba(255,229,0,0.6); }
+
+.sub-card__badge {
+  position: absolute;
+  top: -11px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  color: var(--black);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+
+.sub-card__emoji {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.sub-card__tier {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.sub-card__name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.sub-card__tagline {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.sub-card__pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.sub-card__desc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.sub-card__taste {
+  font-size: 0.78rem;
+  color: var(--subtle);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.sub-card__taste-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 3px;
+}
+
+.sub-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: 4px;
+}
+
+.sub-card__price {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+.sub-card__price span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--subtle);
+  font-weight: 400;
+  font-family: var(--font-body);
+  margin-bottom: 1px;
+}
+.sub-card__price small {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.sub-card__cta {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--yellow);
+}
