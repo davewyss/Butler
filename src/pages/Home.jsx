@@ -24,7 +24,6 @@ function TierCard({ tier, lang }) {
         <img src={tier.image} alt={tier.name} className="tier__duck" />
       </div>
 
-      <div className="tier__lbl">{tier.tier}</div>
       <h3 className="tier__name">{tier.name}</h3>
 
       <div className="tier__tagline">

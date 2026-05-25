@@ -29,7 +29,6 @@ export default function SubTier() {
         <div className="wrap">
           <div className="page-hero__eyebrow">
             <Link to="/subs" className="page-hero__back">{t('back_subs')}</Link>
-            <span className="badge">{tier.tier}</span>
           </div>
 
           <div className="tier-hero__layout">
@@ -152,9 +151,10 @@ export default function SubTier() {
           <div className="tier-nav-grid">
             {TIERS.filter(t => t.id !== tier.id).map(other => (
               <Link key={other.id} to={`/subs/${other.slug}`} className="tier-nav-card">
-                <span className="tier-nav-card__emoji">{other.emoji}</span>
+                <div className="tier-nav-card__oval">
+                  <img src={other.image} alt={other.name} className="tier-nav-card__duck" />
+                </div>
                 <div>
-                  <div className="tier-nav-card__tier">{other.tier}</div>
                   <div className="tier-nav-card__name">{other.name}</div>
                   <div className="tier-nav-card__price">
                     {isEs ? 'desde' : 'from'} €{other.price}/{other.unit}

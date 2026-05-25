@@ -187,16 +187,15 @@
   background: var(--surf2);
   border: 1.5px solid var(--border);
   margin: 0 auto 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 }
 .tier__duck {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0.9;
 }
 
 .tier__lbl {

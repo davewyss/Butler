@@ -98,7 +98,6 @@ export default function Subs() {
                   <img src={tier.image} alt={tier.name} className="sub-card__img" />
                 </div>
 
-                <div className="sub-card__tier">{tier.tier}</div>
                 <h2 className="sub-card__name">{tier.name}</h2>
                 <p className="sub-card__tagline">{tier.tagline}</p>
 
@@ -109,8 +108,8 @@ export default function Subs() {
                 <p className="sub-card__desc">{tier.description[lang]}</p>
 
                 <div className="sub-card__taste">
-                  <span className="sub-card__taste-label">{isEs ? 'Sabor' : 'Taste'}</span>
-                  <span>{tier.taste[lang]}</span>
+                  <span className="sub-card__taste-label">{isEs ? 'Composición' : 'Composition'}</span>
+                  <span>{tier.composition[lang]}</span>
                 </div>
 
                 <div className="sub-card__footer">
