@@ -192,6 +192,12 @@
   justify-content: center;
   flex-shrink: 0;
 }
+.tier__duck {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  opacity: 0.85;
+}
 
 .tier__lbl {
   font-size: 0.6rem;

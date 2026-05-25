@@ -34,7 +34,7 @@ export default function SubTier() {
 
           <div className="tier-hero__layout">
             <div className="tier-hero__text">
-              <div className="tier-hero__emoji">{tier.emoji}</div>
+              <img className="tier-hero__img" src={tier.image} alt={tier.name} />
               <h1 className="tier-hero__name">{tier.name}</h1>
               <p className="tier-hero__tagline">{tier.tagline}</p>
               <div className="tier-hero__pills">
@@ -52,20 +52,20 @@ export default function SubTier() {
                 {/* Taste profile */}
                 <div className="tier-buy-card__profile">
                   <div className="profile-row">
-                    <span>{isEs ? 'Sabor' : 'Taste'}</span>
-                    <span>{tier.taste[lang]}</span>
+                    <span>{isEs ? 'Composición' : 'Composition'}</span>
+                    <span>{tier.composition[lang]}</span>
                   </div>
                   <div className="profile-row">
-                    <span>{isEs ? 'Proceso' : 'Process'}</span>
-                    <span>{tier.process[lang]}</span>
+                    <span>{isEs ? 'Sabor' : 'Flavor'}</span>
+                    <span>{tier.flavor[lang]}</span>
                   </div>
                   <div className="profile-row">
-                    <span>{isEs ? 'Tueste' : 'Roast'}</span>
-                    <span>{tier.roast[lang]}</span>
+                    <span>{isEs ? 'Estructura' : 'Structure'}</span>
+                    <span>{tier.structure[lang]}</span>
                   </div>
                   <div className="profile-row">
-                    <span>{isEs ? 'Ideal para' : 'Ideal for'}</span>
-                    <span>{tier.ideal[lang]}</span>
+                    <span>{isEs ? 'Propósito' : 'Purpose'}</span>
+                    <span>{tier.purpose[lang]}</span>
                   </div>
                 </div>
 

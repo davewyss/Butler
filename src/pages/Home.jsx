@@ -8,12 +8,6 @@ import './Home.css'
 const LOGO_URL    = 'https://drive.google.com/uc?export=view&id=1BrvJTmLjnaUQ6feC6NkSvET6SouIkCQK'
 const HERO_IMG    = 'https://drive.google.com/uc?export=view&id=1M7WwiFMF97bWnnUCfQ_pm1tIlHIOBg4U'
 const PRINTS_URL  = 'https://drive.google.com/uc?export=view&id=1_OTQRSEL67QT3zkSQgXThEkRnYsfJXl0'
-const DUCK_IMGS   = {
-  base:    'https://drive.google.com/uc?export=view&id=1duck_base',
-  explorer:'https://drive.google.com/uc?export=view&id=1duck_explorer',
-  alpine:  'https://drive.google.com/uc?export=view&id=1duck_alpine',
-  summit:  'https://drive.google.com/uc?export=view&id=1duck_summit',
-}
 
 function TierCard({ tier, lang }) {
   const [size, setSize] = useState(tier.sizes[0].label)
@@ -27,7 +21,7 @@ function TierCard({ tier, lang }) {
       )}
 
       <div className="tier__oval">
-        <span style={{ fontSize: '3rem', opacity: 0.3 }}>{tier.emoji}</span>
+        <img src={tier.image} alt={tier.name} className="tier__duck" />
       </div>
 
       <div className="tier__lbl">{tier.tier}</div>

@@ -26,9 +26,12 @@
 }
 
 /* Left text */
-.tier-hero__emoji {
-  font-size: 4rem;
+.tier-hero__img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
   margin-bottom: 16px;
+  opacity: 0.9;
 }
 .tier-hero__name {
   font-family: var(--font-head);

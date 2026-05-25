@@ -94,7 +94,9 @@ export default function Subs() {
                   </div>
                 )}
 
-                <div className="sub-card__emoji">{tier.emoji}</div>
+                <div className="sub-card__img-wrap">
+                  <img src={tier.image} alt={tier.name} className="sub-card__img" />
+                </div>
 
                 <div className="sub-card__tier">{tier.tier}</div>
                 <h2 className="sub-card__name">{tier.name}</h2>
