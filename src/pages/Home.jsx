@@ -2,8 +2,29 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 import { TIERS } from '../data/tiers'
+import { getFaqs } from '../data/faqApi'
 import Layout from '../components/Layout'
 import './Home.css'
+
+// ── Markdown → HTML (for FAQ answers from the DB) ─────────────────────────────
+function renderMarkdown(md) {
+  if (!md) return '';
+  const esc    = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const inline = s => s
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g,     '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,         '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:var(--yellow)">$1</a>');
+  return esc(md).split(/\n\n+/).map(block => {
+    const lines = block.split('\n');
+    if (lines.some(l => /^[\-\*] /.test(l.trim()))) {
+      const items = lines.filter(l => l.trim())
+        .map(l => `<li>${inline(l.replace(/^[\-\*]\s+/, ''))}</li>`).join('');
+      return `<ul>${items}</ul>`;
+    }
+    return `<p>${lines.map(inline).join('<br>')}</p>`;
+  }).join('');
+}
 
 const LOGO_URL    = 'https://drive.google.com/uc?export=view&id=1BrvJTmLjnaUQ6feC6NkSvET6SouIkCQK'
 const HERO_IMG    = 'https://drive.google.com/uc?export=view&id=1M7WwiFMF97bWnnUCfQ_pm1tIlHIOBg4U'
@@ -70,6 +91,27 @@ function TierCard({ tier, lang }) {
   )
 }
 
+// ── Hardcoded fallback FAQ (used when the API sheet isn't available yet) ───────
+const FALLBACK_FAQS_ES = [
+  { q: '¿Cómo funcionan las suscripciones?', a: 'Nuestras suscripciones son simples y flexibles. Una vez que completes el formulario, te recomendaremos un plan. Al inicio de cada mes, recibirás café de especialidad fresco adaptado a tus preferencias de sabor y preparación. Puedes cambiar o cancelar en cualquier momento.' },
+  { q: '¿Qué café recibiré cada mes?', a: 'Cada mes recibirás un café diferente — nunca el mismo dos meses seguidos. Cada selección se cuida según tu nivel y perfil de sabor.' },
+  { q: '¿Puedo recibir el mismo café cada mes?', a: '¡Haremos todo lo posible! Mientras haya stock, lo gestionamos. Escríbenos un email y lo resolvemos.' },
+  { q: '¿A dónde enviáis?', a: 'Enviamos desde Madrid a toda la España peninsular, Portugal y Andorra.' },
+  { q: '¿Cuánto cuesta el envío?', a: 'El envío es gratuito en pedidos superiores a 30€. En caso contrario, se aplica un pequeño coste de 3,50€.' },
+  { q: '¿Cómo puedo cambiar o cancelar mi suscripción?', a: 'Puedes cambiar o cancelar tu suscripción en cualquier momento desde el <a href="/portal" style="color:var(--yellow)">Portal</a>. Sin llamadas, sin complicaciones.' },
+  { q: '¿Ofrecéis compras puntuales?', a: '¡Sí! Echa un vistazo al <strong>Passport: Ranger 3-Pack</strong> — un trío de cafés seleccionados para explorar la gama Butler antes de suscribirte.' },
+]
+
+const FALLBACK_FAQS_EN = [
+  { q: 'How do subscriptions work?', a: 'Our subscriptions are simple and flexible. Once you complete our form, we\'ll recommend a plan. At the start of each month, you\'ll receive fresh specialty coffee tailored to your taste and brew preferences. Change or cancel anytime.' },
+  { q: 'What coffee will I get each month?', a: 'Every month you\'ll receive a different coffee — never the same one two months in a row. We curate each selection based on your tier and taste profile.' },
+  { q: 'Can I get the same coffee each month?', a: 'We\'ll do our best! As long as there is supply, we can make it happen. Just drop us an email and we\'ll sort it out.' },
+  { q: 'Where do you ship to?', a: 'We ship from our base in Madrid to mainland Spain, Portugal and Andorra.' },
+  { q: 'How much is shipping?', a: 'Shipping is free on all orders over €30. Otherwise, a flat fee of €3.50 applies.' },
+  { q: 'How can I change or cancel my subscription?', a: 'You can change or cancel your subscription anytime through your <a href="/portal" style="color:var(--yellow)">Portal</a>. No calls, no hassle.' },
+  { q: 'Do you offer one-time purchases?', a: 'Yes! Check out our <strong>Passport: Ranger 3-Pack</strong> — a curated trio of coffees to explore the Butler range before committing to a subscription.' },
+]
+
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
@@ -85,26 +127,27 @@ function FaqItem({ q, a }) {
 
 export default function Home() {
   const { lang } = useLang()
-
   const isEs = lang === 'es'
 
-  const faqs = isEs ? [
-    { q: '¿Cómo funcionan las suscripciones?', a: 'Nuestras suscripciones son simples y flexibles. Una vez que completes el formulario, te recomendaremos un plan. Al inicio de cada mes, recibirás café de especialidad fresco adaptado a tus preferencias de sabor y preparación. Puedes cambiar o cancelar en cualquier momento.' },
-    { q: '¿Qué café recibiré cada mes?', a: 'Cada mes recibirás un café diferente — nunca el mismo dos meses seguidos. Cada selección se cuida según tu nivel y perfil de sabor.' },
-    { q: '¿Puedo recibir el mismo café cada mes?', a: '¡Haremos todo lo posible! Mientras haya stock, lo gestionamos. Escríbenos un email y lo resolvemos.' },
-    { q: '¿A dónde enviáis?', a: 'Enviamos desde Madrid a toda la España peninsular, Portugal y Andorra.' },
-    { q: '¿Cuánto cuesta el envío?', a: 'El envío es gratuito en pedidos superiores a 30€. En caso contrario, se aplica un pequeño coste de 3,50€.' },
-    { q: '¿Cómo puedo cambiar o cancelar mi suscripción?', a: 'Puedes cambiar o cancelar tu suscripción en cualquier momento desde el <a href="/portal" style="color:var(--yellow)">Portal</a>. Sin llamadas, sin complicaciones.' },
-    { q: '¿Ofrecéis compras puntuales?', a: '¡Sí! Echa un vistazo al <strong>Passport: Ranger 3-Pack</strong> — un trío de cafés seleccionados para explorar la gama Butler antes de suscribirte.' },
-  ] : [
-    { q: 'How do subscriptions work?', a: 'Our subscriptions are simple and flexible. Once you complete our form, we\'ll recommend a plan. At the start of each month, you\'ll receive fresh specialty coffee tailored to your taste and brew preferences. Change or cancel anytime.' },
-    { q: 'What coffee will I get each month?', a: 'Every month you\'ll receive a different coffee — never the same one two months in a row. We curate each selection based on your tier and taste profile.' },
-    { q: 'Can I get the same coffee each month?', a: 'We\'ll do our best! As long as there is supply, we can make it happen. Just drop us an email and we\'ll sort it out.' },
-    { q: 'Where do you ship to?', a: 'We ship from our base in Madrid to mainland Spain, Portugal and Andorra.' },
-    { q: 'How much is shipping?', a: 'Shipping is free on all orders over €30. Otherwise, a flat fee of €3.50 applies.' },
-    { q: 'How can I change or cancel my subscription?', a: 'You can change or cancel your subscription anytime through your <a href="/portal" style="color:var(--yellow)">Portal</a>. No calls, no hassle.' },
-    { q: 'Do you offer one-time purchases?', a: 'Yes! Check out our <strong>Passport: Ranger 3-Pack</strong> — a curated trio of coffees to explore the Butler range before committing to a subscription.' },
-  ]
+  // FAQ — try to load from API, fall back to hardcoded content
+  const [apiFaqs, setApiFaqs] = useState(null) // null = not yet tried
+
+  useEffect(() => {
+    getFaqs().then(data => setApiFaqs(data)).catch(() => setApiFaqs([]))
+  }, [])
+
+  // Build the FAQ list: use API data if we got entries, otherwise hardcoded fallback
+  const faqs = (() => {
+    if (apiFaqs && apiFaqs.length > 0) {
+      return apiFaqs.map(f => ({
+        q: isEs ? (f.question_es || f.question_en) : (f.question_en || f.question_es),
+        a: isEs
+          ? renderMarkdown(f.answer_es || f.answer_en)
+          : renderMarkdown(f.answer_en || f.answer_es),
+      }))
+    }
+    return isEs ? FALLBACK_FAQS_ES : FALLBACK_FAQS_EN
+  })()
 
   return (
     <Layout>
