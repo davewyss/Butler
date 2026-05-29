@@ -35,7 +35,7 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
-.nav__logo img { height: 34px; width: auto; }
+.nav__logo-img { height: 34px; width: auto; display: block; }
 
 /* Desktop links */
 .nav__links {

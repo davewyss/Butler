@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import { BRANDS, MACHINES, getMachinesByBrand } from '../data/machines'
+import { useMachines, getMachinesByBrand } from '../data/machinesApi'
 import Layout from '../components/Layout'
 import './Machines.css'
 
@@ -13,6 +13,7 @@ const TAG_VARIANTS = {
 export default function Machines() {
   const { lang, t } = useLang()
   const isEs = lang === 'es'
+  const { machines, brands } = useMachines()
 
   return (
     <Layout>
@@ -88,7 +89,7 @@ export default function Machines() {
           </div>
 
           <div className="machines-grid">
-            {getMachinesByBrand('jura').map(m => (
+            {getMachinesByBrand(machines, 'jura').map(m => (
               <MachineCard key={m.id} machine={m} lang={lang} isEs={isEs} />
             ))}
           </div>
@@ -111,7 +112,7 @@ export default function Machines() {
           </div>
 
           <div className="machines-grid machines-grid--single">
-            {getMachinesByBrand('behmor').map(m => (
+            {getMachinesByBrand(machines, 'behmor').map(m => (
               <MachineCard key={m.id} machine={m} lang={lang} isEs={isEs} wide />
             ))}
           </div>

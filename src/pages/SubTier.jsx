@@ -1,25 +1,28 @@
 import { useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import { getTierBySlug, TIERS } from '../data/tiers'
+import { useTiers, getTierBySlug } from '../data/subsApi'
 import Layout from '../components/Layout'
 import './SubTier.css'
 
 export default function SubTier() {
   const { tier: slug } = useParams()
   const { lang, t } = useLang()
-  const tier = getTierBySlug(slug)
+  const { tiers, loading } = useTiers()
+  const tier = getTierBySlug(tiers, slug)
   const isEs = lang === 'es'
 
-  const [size, setSize] = useState(() => tier?.sizes[0].label || '')
+  const [size, setSize] = useState(() => tier?.sizes?.[0]?.label || '')
 
+  // While loading don't flash-redirect; once loaded redirect if slug unknown
+  if (loading && !tier) return null
   if (!tier) return <Navigate to="/subs" replace />
 
   const currentSize = tier.sizes.find(s => s.label === size) || tier.sizes[0]
-  const stripeLink  = tier.stripeLinks[size] || '#'
-  const tierIndex   = TIERS.findIndex(t => t.id === tier.id)
-  const prevTier    = tierIndex > 0 ? TIERS[tierIndex - 1] : null
-  const nextTier    = tierIndex < TIERS.length - 1 ? TIERS[tierIndex + 1] : null
+  const stripeLink  = tier.stripeLinks?.[size] || '#'
+  const tierIndex   = tiers.findIndex(t => t.id === tier.id)
+  const prevTier    = tierIndex > 0 ? tiers[tierIndex - 1] : null
+  const nextTier    = tierIndex < tiers.length - 1 ? tiers[tierIndex + 1] : null
 
   return (
     <Layout>
@@ -149,7 +152,7 @@ export default function SubTier() {
             </h2>
           </div>
           <div className="tier-nav-grid">
-            {TIERS.filter(t => t.id !== tier.id).map(other => (
+            {tiers.filter(t => t.id !== tier.id).map(other => (
               <Link key={other.id} to={`/subs/${other.slug}`} className="tier-nav-card">
                 <div className="tier-nav-card__oval">
                   <img src={other.image} alt={other.name} className="tier-nav-card__duck" />

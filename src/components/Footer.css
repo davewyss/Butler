@@ -37,7 +37,7 @@
   font-size: 1rem;
   margin-bottom: 10px;
 }
-.footer__logo img { height: 30px; width: auto; }
+.footer__logo-img { height: 30px; width: auto; display: block; }
 
 .footer__tagline {
   font-size: 0.85rem;

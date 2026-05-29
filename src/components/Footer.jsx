@@ -3,7 +3,7 @@ import { useLang } from '../context/LangContext'
 import { LEGAL_NAV } from '../data/legal'
 import './Footer.css'
 
-const LOGO_URL = 'https://drive.google.com/uc?export=view&id=1BrvJTmLjnaUQ6feC6NkSvET6SouIkCQK'
+const LOGO_URL   = '/BC_outlineLogo.svg'
 const PRINTS_URL = 'https://drive.google.com/uc?export=view&id=1_OTQRSEL67QT3zkSQgXThEkRnYsfJXl0'
 
 export default function Footer() {
@@ -13,6 +13,7 @@ export default function Footer() {
   const productLinks = [
     { to: '/subs',     label: t('nav_coffee') },
     { to: '/machines', label: t('nav_machines') },
+    { to: '/blog',     label: t('nav_blog') },
     { to: '/portal',   label: t('nav_portal') },
   ]
 
@@ -31,12 +32,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer__brand-col">
             <Link to="/" className="footer__logo">
-              <img
-                src={LOGO_URL}
-                alt="Butler Coffee"
-                onError={e => { e.currentTarget.style.display = 'none' }}
-              />
-              <span>Butler Coffee</span>
+              <img src={LOGO_URL} alt="Butler Coffee" className="footer__logo-img" />
             </Link>
             <p className="footer__tagline">{t('footer_tag')}</p>
           </div>

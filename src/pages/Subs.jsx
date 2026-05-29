@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import { TIERS } from '../data/tiers'
+import { useTiers } from '../data/subsApi'
 import Layout from '../components/Layout'
 import './Subs.css'
 
 export default function Subs() {
   const { lang, t } = useLang()
   const isEs = lang === 'es'
+  const { tiers: TIERS } = useTiers()
 
   return (
     <Layout>

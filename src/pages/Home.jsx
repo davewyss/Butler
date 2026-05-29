@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 import { TIERS } from '../data/tiers'
 import { getFaqs } from '../data/faqApi'
+import { useFeaturedPosts, formatDate, normalizeDriveUrl } from '../data/blogApi'
 import Layout from '../components/Layout'
 import './Home.css'
 
@@ -128,6 +129,9 @@ function FaqItem({ q, a }) {
 export default function Home() {
   const { lang } = useLang()
   const isEs = lang === 'es'
+
+  // Blog teaser — latest featured posts from API
+  const { posts: featuredPosts } = useFeaturedPosts(3)
 
   // FAQ — try to load from API, fall back to hardcoded content
   const [apiFaqs, setApiFaqs] = useState(null) // null = not yet tried
@@ -339,26 +343,34 @@ export default function Home() {
                 {isEs ? 'Últimas lecturas.' : 'Latest reads.'}
               </h2>
             </div>
+            <Link to="/blog" className="btn btn--ghost btn--sm blog-header__all">
+              {isEs ? 'Ver todo →' : 'View all →'}
+            </Link>
           </div>
 
           <div className="blog-grid">
-            {[
-              { author: 'Tomás', date: 'Jun 5, 2025', title: 'Cómo clavar un café perfecto en la oficina' },
-              { author: 'Dave',  date: 'Jun 5, 2025', title: 'Cómo hacer Cold Brew en la oficina' },
-              { author: 'Rafael',date: 'May 25, 2025',title: 'La importancia del agua en el café de especialidad' },
-            ].map(post => (
-              <div className="post-card" key={post.title}>
-                <div className="post-card__img" />
-                <div className="post-card__body">
-                  <div className="post-card__meta">
-                    <span>{post.author}</span>
-                    <span>{post.date}</span>
+            {featuredPosts.map(post => {
+              const title = post[`title_${lang}`] || post.title_en
+              const imgSrc = post.imageUrl ? normalizeDriveUrl(post.imageUrl) : null
+              return (
+                <Link to={`/blog/${post.slug}`} className="post-card" key={post.id}>
+                  <div className="post-card__img">
+                    {imgSrc
+                      ? <img src={imgSrc} alt={post.imageAlt || title} style={{ width:'100%', height:'100%', objectFit:'cover' }} />
+                      : null
+                    }
                   </div>
-                  <h3 className="post-card__title">{post.title}</h3>
-                  <a href="#" className="post-card__link">{isEs ? 'Leer' : 'Read'}</a>
-                </div>
-              </div>
-            ))}
+                  <div className="post-card__body">
+                    <div className="post-card__meta">
+                      {post.author    && <span>{post.author}</span>}
+                      {post.updatedAt && <span>{formatDate(post.updatedAt, lang)}</span>}
+                    </div>
+                    <h3 className="post-card__title">{title}</h3>
+                    <span className="post-card__link">{isEs ? 'Leer →' : 'Read →'}</span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

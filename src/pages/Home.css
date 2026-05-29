@@ -414,6 +414,8 @@
   display: flex;
   flex-direction: column;
   transition: border-color var(--ease);
+  text-decoration: none;
+  color: inherit;
 }
 .post-card:hover { border-color: rgba(255,255,255,0.14); }
 .post-card__img {
@@ -444,7 +446,7 @@
   align-items: center;
   gap: 4px;
 }
-.post-card__link::after { content: '→'; }
+/* arrow is inline in JSX */
 
 /* ─── FAQ ────────────────────────────────────────────────────────────────── */
 .faq__list { max-width: 720px; margin: 0 auto; }

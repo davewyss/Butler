@@ -1,18 +1,22 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import { getMachineBySlug, getMachinesByBrand } from '../data/machines'
+import { useMachines, getMachineBySlug, getMachinesByBrand } from '../data/machinesApi'
 import Layout from '../components/Layout'
 import './MachinePage.css'
 
 export default function MachinePage() {
   const { machine: slug } = useParams()
   const { lang, t } = useLang()
-  const machine = getMachineBySlug(slug)
+  const { machines, loading } = useMachines()
   const isEs = lang === 'es'
 
+  const machine = getMachineBySlug(machines, slug)
+
+  // While loading, show nothing (avoids flash redirect on first render)
+  if (loading && !machine) return null
   if (!machine) return <Navigate to="/machines" replace />
 
-  const related = getMachinesByBrand(machine.brand).filter(m => m.id !== machine.id)
+  const related = getMachinesByBrand(machines, machine.brand).filter(m => m.id !== machine.id)
 
   return (
     <Layout>

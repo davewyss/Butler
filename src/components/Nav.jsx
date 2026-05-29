@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 import './Nav.css'
 
-const LOGO_URL = 'https://drive.google.com/uc?export=view&id=1BrvJTmLjnaUQ6feC6NkSvET6SouIkCQK'
+const LOGO_URL = '/BC_outlineLogo.svg'
 
 export default function Nav() {
   const { lang, switchLang, t } = useLang()
@@ -43,6 +43,7 @@ export default function Nav() {
   const navLinks = [
     { to: '/subs',     label: t('nav_coffee') },
     { to: '/machines', label: t('nav_machines') },
+    { to: '/blog',     label: t('nav_blog') },
     { to: '/contact',  label: t('nav_contact') },
     { to: '/portal',   label: t('nav_portal') },
   ]
@@ -52,13 +53,7 @@ export default function Nav() {
       <div className="nav__bar">
         {/* Logo */}
         <Link to="/" className="nav__logo">
-          <img
-            src={LOGO_URL}
-            alt="Butler Coffee"
-            onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'inline' }}
-          />
-          <span style={{ display: 'none' }}>🦆</span>
-          <span className="nav__logo-text">{t('brand')}</span>
+          <img src={LOGO_URL} alt="Butler Coffee" className="nav__logo-img" />
         </Link>
 
         {/* Desktop links */}
